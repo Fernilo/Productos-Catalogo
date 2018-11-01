@@ -22,12 +22,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+				<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#ModalMarcas">
 				 Agregar Marcas
 				</button>
 
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="ModalMarcas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -37,7 +37,7 @@
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				      		<form action="" onsubmit="return validar()">
+				      		<form action="" onsubmit="return validarMarca()">
 					      		<div class="form-group">
 								   <label for="nombreMarca">Marca</label>
 								   <input type="text" class="form-control" id="nombreMarca" placeholder="Nombre de la Marca">
@@ -52,26 +52,67 @@
 			</div>
 			<div class="col-md-6">
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+				<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#ModalProductos">
 				 Agregar Productos
 				</button>
 
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="ModalProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				        <h5 class="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				        ...
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Save changes</button>
+				       	<form action="" onsubmit="return validarProducto()">
+					      		<div class="form-group">
+								   <label for="nombreProducto">Producto</label>
+								   <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto">
+								</div>
+								<div class="form-group">
+								   <label for="cantidad">Cantidad</label>
+								   <input type="text" class="form-control" id="cantidad"	placeholder="Cantidad">
+								</div>
+								<div class="form-group">
+								    <label for="exampleFormControlSelect1">Seleccione marca</label>
+								    <select class="form-control" id="combo-box">
+										<option selected="" disabled="" value="">Marca</option>
+									    <option>1</option>
+									    <option>2</option>
+									    <option>3</option>
+									    <option>4</option>
+									    <option>5</option>
+								    </select>
+							  	</div>
+							  	<div class="form-group">
+							  		<label for="">Talla:</label>
+							  		<div class="form-check form-check-inline">
+									  	<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									 	 <label class="form-check-label" for="inlineRadio1">S</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  	<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									  	<label class="form-check-label" for="inlineRadio2">M</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  	<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									  	<label class="form-check-label" for="inlineRadio3">L</label>
+									</div>
+
+
+							  		</div>
+								<div class="form-group">
+									   	<label for="nombreProducto">Observaciones</label>
+									   	<textarea name="obs" id="obs" class="form-control" placeholder="Observaciones"></textarea>
+								</div>
+
+								<input class="btn btn-danger mt-2 offset-md-8 ml-6" type="reset" value="Reset">
+								<input class="btn btn-primary mt-2 " type="submit" value="Guardar">
+								
+				      	</form>
 				      </div>
 				    </div>
 				  </div>
@@ -80,12 +121,24 @@
 		</div>
 	</div>
 	<script>
-		function validar(){
+		function validarMarca(){
 			valor = document.getElementById("nombreMarca").value;
 			if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
 				alert("Debe ingresar un nombre");
   			return false;
 			}
+		}
+		function validarProducto(){
+			nombre = document.getElementById("nombreProducto").value;
+			cantidad=document.getElementById("cantidad").value;
+			if( nombre == null || nombre.length == 0 || /^\s+$/.test(nombre) ) {
+				alert("Debe ingresar un nombre");
+  			return false;
+			}
+			if(cantidad== null || cantidad.length == 0 || /^\s+$/.test(cantidad) ) {
+				alert("Debe ingresar una cantidad");
+  			return false;
+  			}
 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
