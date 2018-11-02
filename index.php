@@ -1,3 +1,6 @@
+<?php 
+	include("conexion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,11 +101,21 @@
 										<label for="exampleFormControlSelect1">Marca</label>
 										<select class="form-control" id="combo-box">
 											<option selected="" disabled="" value="">Marca</option>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
+											<?php 
+											$sql="SELECT nombre FROM marcas WHERE 1=1 ORDER BY nombre";
+											$r=mysqli_query($db,$sql);
+											if($r)
+											{
+												while($rs=mysqli_fetch_array($r)){
+
+
+
+											?>
+											<option value=""><?php echo $rs['nombre']; ?></option>
+											<?php  
+												}
+											}
+											?>
 										</select>
 									</div>
 									<div class="form-group">
