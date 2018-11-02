@@ -45,6 +45,12 @@
 										<input type="text" name="nombreMarca" class="form-control" id="nombreMarca" placeholder="Nombre de la Marca">
 										<input class="btn btn-danger mt-2 offset-md-8 ml-6" type="reset" value="Reset">
 										<input class="btn btn-primary mt-2 " type="submit" value="Guardar">
+										<div class="alert ocultar" id="ocultar1">
+											<div class="alert alert-danger" role="alert">
+												Debe Ingresar un nombre!
+											</div>
+										</div>
+										
 									</div>
 								</form>
 							</div>
@@ -73,10 +79,20 @@
 									<div class="form-group">
 										<label for="nombreProducto">Producto</label>
 										<input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto">
+										<div class="alert ocultar" id="ocultar2">
+											<div class="alert alert-danger" role="alert">
+												Debe Ingresar un nombre!
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<label for="cantidad">Cantidad</label>
 										<input type="text" class="form-control" id="cantidad"	placeholder="Cantidad">
+										<div class="alert ocultar" id="ocultar3">
+											<div class="alert alert-danger" role="alert">
+												Debe Ingresar una cantidad
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<label for="exampleFormControlSelect1">Marca</label>
@@ -134,7 +150,7 @@
 		function validarMarca(){
 			valor = document.getElementById("nombreMarca").value;
 			if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
-				alert("Debe ingresar un nombre");
+				document.getElementById("ocultar1").style.display='block';
 				return false;
 			}
 		}
@@ -142,11 +158,11 @@
 			nombre = document.getElementById("nombreProducto").value;
 			cantidad=document.getElementById("cantidad").value;
 			if( nombre == null || nombre.length == 0 || /^\s+$/.test(nombre) ) {
-				alert("Debe ingresar un nombre");
+				document.getElementById("ocultar2").style.display='block';
 				return false;
 			}
 			if(cantidad== null || cantidad.length == 0 || /^\s+$/.test(cantidad) ) {
-				alert("Debe ingresar una cantidad");
+				document.getElementById("ocultar3").style.display='block';
 				return false;
 			}
 		}
