@@ -8,12 +8,15 @@ $r=mysqli_num_rows($rs);
 if($r==0){
 	$sql="INSERT INTO marcas (nombre) VALUES ('$nombre')";
 	mysqli_query($db,$sql);
+	 echo '<script>alert("Empresa agregada correctamente");parent.location = "index.php"</script>';
 }
 else{
-	echo "La empresa ".$nombre." ya existe";
+	
+	    echo '<script>alert("La empresa '.$nombre.' ya existe");parent.location = "index.php"</script>';
 }
 
 
-
+mysqli_free_result($rs);
+mysqli_close($db);
 
 ?>
