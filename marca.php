@@ -16,7 +16,7 @@ else{
 }
 
 
-mysqli_free_result($rs);
-mysqli_close($db);
+mysqli_free_result($rs);//libera lo que se obtuvo en el select
+mysqli_close($db);//cierra la conexion a la base de datos
 
 ?>

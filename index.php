@@ -1,5 +1,5 @@
 <?php 
-	include("conexion.php");
+include("conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,9 +7,10 @@
 	<meta charset="UTF-8">
 	<title>Catalogo de productos</title>
 	<link rel="stylesheet" href="css/estilos.css">
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+	
 </head>
 <body>
 	<div class="container-fluid">
@@ -20,10 +21,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 formato-h2">
-				<h2>Seleccione lo que desea agregar</h2>
+				<h2>Administración de productos</h2>
 			</div>
 		</div>
-		<br><br><br><br><br>
+		<br><br>
 		<div class="row">
 			<div class="col-md-6">
 				<!-- Button trigger modal -->
@@ -110,9 +111,9 @@
 
 
 
-											?>
-											<option value=""><?php echo $rs['nombre']; ?></option>
-											<?php  
+													?>
+													<option value=""><?php echo $rs['nombre']; ?></option>
+													<?php  
 												}
 											}
 											?>
@@ -156,6 +157,45 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 mt-4 ">
+				<table class="table table-striped table-sm table-bordered table-hover">
+					<thead>
+						<tr>
+							<th class="col-md-1">Editar</th>
+							<th>Nombre</th>
+							<th class="col-md-1">Borrar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php 
+
+						$sql1="SELECT nombre FROM marcas  ORDER BY nombre";
+						$r1=mysqli_query($db,$sql1);
+						
+						if($r1)
+						{
+
+							while($rs1=mysqli_fetch_array($r1))
+							{
+
+
+
+								?>
+								<tr>
+									<td><div class="ancho-col"><button class="btn btn-warning"><img src="iconos/Pencil512_44200.ico" alt=""></button></div></td>
+									<td class="text-center"><?php echo $rs1['nombre']; ?></td>
+									<td><button class="btn btn-danger"><img src="iconos/ic_delete_128_28267.ico" alt=""></button></td>
+								</tr>
+								<?php 
+							}
+						}
+						?>
+					</tbody>
+				</table>
+				
 			</div>
 		</div>
 	</div>
