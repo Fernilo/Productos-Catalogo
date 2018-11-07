@@ -17,8 +17,9 @@
 	text-decoration: underline  red;
 }
 .ocultar{
-	
+	height: 48px;
 	display: none;
+	margin-bottom: 10px;
 }
 .ancho-col{
 	width: 0%;

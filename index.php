@@ -81,7 +81,7 @@ include("conexion.php");
 							<div class="modal-body">
 								<form action="" onsubmit="return validarProducto()">
 									<div class="form-group">
-										<label for="nombreProducto">Producto</label>
+										<label for="nombreProducto">Producto*</label>
 										<input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto">
 										<div class="alert ocultar" id="ocultar2">
 											<div class="alert alert-danger" role="alert">
@@ -90,16 +90,22 @@ include("conexion.php");
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="cantidad">Cantidad</label>
+										<label for="cantidad">Cantidad*</label>
 										<input type="text" class="form-control" id="cantidad"	placeholder="Cantidad">
-										<div class="alert ocultar" id="ocultar3">
+										<div class="alert ocultar mt-1" id="ocultar3">
 											<div class="alert alert-danger" role="alert">
-												Debe Ingresar una cantidad
+												Debe Ingresar una cantidad!
 											</div>
 										</div>
+										<div class="alert ocultar" id="ocultar4">
+											<div class="alert alert-danger" role="alert">
+												Debe ingresar un número!
+											</div>
+										</div>
+
 									</div>
 									<div class="form-group">
-										<label for="exampleFormControlSelect1">Marca</label>
+										<label for="exampleFormControlSelect1">Marca*</label>
 										<select class="form-control" id="combo-box">
 											<option selected="" disabled="" value="">Marca</option>
 											<?php 
@@ -118,9 +124,14 @@ include("conexion.php");
 											}
 											?>
 										</select>
+										<div class="alert ocultar" id="ocultar5">
+											<div class="alert alert-danger" role="alert">
+												Debe seleccionar una marca!
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
-										<label for="">Talla</label>
+										<label for="">Talla*</label>
 										<br>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
@@ -137,10 +148,20 @@ include("conexion.php");
 
 
 									</div>
+									<div class="alert ocultar" id="ocultar6">
+										<div class="alert alert-danger" role="alert">
+											Debe ingresar una talla!
+										</div>
+									</div>
 									<div class="form-group">
-										<label for="">Fecha Embarque</label>
+										<label for="">Fecha Embarque*</label>
 										<div class="input-group date fecha">
-											<input type="text" class="form-control"><span class="input-group-addon"><i class="calendar-alt"></i></span>
+											<input type="text" id="fecha" class="form-control"><span class="input-group-addon"><i class="calendar-alt"></i></span><img src="iconos/calen.ico" alt="">
+										</div>
+										<div class="alert ocultar" id="ocultar7">
+											<div class="alert alert-danger" role="alert">
+											Debe ingresar una fecha!
+											</div>
 										</div>
 									</div>
 									
@@ -172,7 +193,7 @@ include("conexion.php");
 					<tbody>
 						<?php 
 
-						$sql1="SELECT nombre FROM marcas  ORDER BY nombre";
+						$sql1="SELECT * FROM marcas  ORDER BY nombre";
 						$r1=mysqli_query($db,$sql1);
 						
 						if($r1)
@@ -187,7 +208,7 @@ include("conexion.php");
 								<tr>
 									<td><div class="ancho-col"><button class="btn btn-warning"><img src="iconos/Pencil512_44200.ico" alt=""></button></div></td>
 									<td class="text-center"><?php echo $rs1['nombre']; ?></td>
-									<td><button class="btn btn-danger"><img src="iconos/ic_delete_128_28267.ico" alt=""></button></td>
+									<td><button class="btn btn-danger" onClick="borrar(<?php echo $rs1["idmarcas"]; ?>)"><img src="iconos/ic_delete_128_28267.ico" alt=""></button></td>
 								</tr>
 								<?php 
 							}
@@ -210,6 +231,9 @@ include("conexion.php");
 		function validarProducto(){
 			nombre = document.getElementById("nombreProducto").value;
 			cantidad=document.getElementById("cantidad").value;
+			selected=document.getElementById("combo-box").selectedIndex;
+			fecha=document.getElementById("fecha").value;
+			talla=document.getElementsByName("inlineRadioOptions");
 			if( nombre == null || nombre.length == 0 || /^\s+$/.test(nombre) ) {
 				document.getElementById("ocultar2").style.display='block';
 				return false;
@@ -218,6 +242,35 @@ include("conexion.php");
 				document.getElementById("ocultar3").style.display='block';
 				return false;
 			}
+			if(fecha==null || fecha.length==0 || /^\s+$/.test(fecha) ){
+				document.getElementById("ocultar7").style.display='block';
+				return false;
+			}
+			if(isNaN(cantidad)){
+				document.getElementById("ocultar4").style.display='block';
+				return false;
+			}
+			if(selected==null || selected==0){
+				document.getElementById("ocultar5").style.display='block';
+
+				return false;
+			}
+			var seleccionado = false;
+			for(var i=0; i<talla.length; i++) {    
+				if(talla[i].checked) {
+					seleccionado = true;
+					break;
+				}
+			}
+
+			if(!seleccionado) {
+				document.getElementById("ocultar6").style.display='block';
+				return false;
+			}
+		}
+		function borrar(id)
+		{
+			location.href="borrar.php?id="+id;
 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
