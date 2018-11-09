@@ -2,36 +2,31 @@
 include("conexion.php");
 
 if(!empty($_POST)){
-	$alert='';
-	if(empty($_POST['nombreMarca'])){
-			echo "<script language='javascript'>";
-			echo "alert('El campo es obligatorio.')";
-			echo "</script>";
+	
+	
+	$idCampo=$_POST['idMarca'];
+	$nombreCampo=$_POST['nombreMarca'];
 
+	$sqlCampo="SELECT * FROM marcas WHERE nombre ='$nombreCampo'";
+	$rsCampo=mysqli_query($db,$sqlCampo);
+	$rCampo=mysqli_num_rows($rsCampo);
+	if($rCampo > 0){
+		echo "<script language='javascript'>";
+		echo "alert('La marca ya existe.')";
+		echo "</script>";
 	}else{
-		$idCampo=$_POST['idMarca'];
-		$nombreCampo=$_POST['nombreMarca'];
-		
-		$sqlCampo="SELECT * FROM marcas WHERE nombre ='$nombreCampo'";
-		$rsCampo=mysqli_query($db,$sqlCampo);
-		$rCampo=mysqli_num_rows($rsCampo);
-		if($rCampo > 0){
-			echo "<script language='javascript'>";
-			echo "alert('La marca ya existe.')";
-			echo "</script>";
-		}else{
-			
-			$sqlUpdate="UPDATE marcas SET nombre='$nombreCampo' WHERE idmarcas=$idCampo";
-			$rUpdate=mysqli_query($db,$sqlUpdate);
-			if($rUpdate){
+
+		$sqlUpdate="UPDATE marcas SET nombre='$nombreCampo' WHERE idmarcas=$idCampo";
+		$rUpdate=mysqli_query($db,$sqlUpdate);
+		if($rUpdate){
 			echo "<script language='javascript'>";
 			echo "alert('Se actualizo correctamente.');parent.location = 'index.php'";
 			//
 			echo "</script>";
-			}
 		}
-		
 	}
+
+	
 }
 
 if(empty($_GET['id'])){
@@ -70,7 +65,7 @@ else{
 	</div>
 	<div class="row">
 		<div class="col-md-4 offset-md-4">
-			<form action="" method="post">
+			<form action="" method="post" onsubmit="return validarMarca()">
 				<div class="form-group">
 					<label for="nombreMarca">Marca</label>
 					<input type="hidden" name="idMarca" value="<?php echo $id; ?>">
@@ -78,7 +73,7 @@ else{
 					
 					<input class="btn btn-primary btn-lg btn-block mt-2 " type="submit" value="Guardar">
 					
-					<div class="alert ocultar" id="ocultar1">
+					<div class="alert ocultar" id="ocultar">
 						<div class="alert alert-danger" role="alert">
 							Debe Ingresar un nombre!
 						</div>
@@ -88,5 +83,15 @@ else{
 			</form>
 		</div>
 	</div>
+	<script>
+		function validarMarca(){
+			valor = document.getElementById("nombreMarca").value;
+			if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) {
+				document.getElementById("ocultar").style.display='block';
+				return false;
+			}
+		}
+		
+	</script>
 </body>
 </html>

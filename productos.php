@@ -6,9 +6,12 @@ $marca=$_POST['marca'];
 $talla=$_POST['inlineRadioOptions'];
 $fecha=$_POST['fecha'];
 $obs=$_POST['obs'];
-echo $nombre;
+$fec=explode('/',$fecha);
 
-$sql="INSERT INTO productos(nombre) VALUES ('$nombre')";
+$nfecha = "{$fec[2]}-{$fec[1]}-{$fec[0]}";
+echo $nfecha;
+
+$sql = "INSERT INTO productos(nombre,talla,obs,fechaEmbarque,cantidad,marcas_idmarcas) VALUES ('$nombre','$talla','$obs','$nfecha',$cantidad,$marca)";
 mysqli_query($db,$sql);
 
 ?>
