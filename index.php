@@ -79,10 +79,10 @@ include("conexion.php");
 								</button>
 							</div>
 							<div class="modal-body">
-								<form action="" onsubmit="return validarProducto()">
+								<form action="productos.php" method="post" onsubmit="return validarProducto()">
 									<div class="form-group">
 										<label for="nombreProducto">Producto*</label>
-										<input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del producto">
+										<input type="text" class="form-control" id="nombreProducto" name="nombre" placeholder="Nombre del producto">
 										<div class="alert ocultar" id="ocultar2">
 											<div class="alert alert-danger" role="alert">
 												Debe Ingresar un nombre!
@@ -91,7 +91,7 @@ include("conexion.php");
 									</div>
 									<div class="form-group">
 										<label for="cantidad">Cantidad*</label>
-										<input type="text" class="form-control" id="cantidad"	placeholder="Cantidad">
+										<input type="text" name="cantidad" class="form-control" id="cantidad"	placeholder="Cantidad">
 										<div class="alert ocultar mt-1" id="ocultar3">
 											<div class="alert alert-danger" role="alert">
 												Debe Ingresar una cantidad!
@@ -106,19 +106,21 @@ include("conexion.php");
 									</div>
 									<div class="form-group">
 										<label for="exampleFormControlSelect1">Marca*</label>
-										<select class="form-control" id="combo-box">
+										<select class="form-control" id="combo-box" name="marca">
 											<option selected="" disabled="" value="">Marca</option>
 											<?php 
-											$sql="SELECT nombre FROM marcas WHERE 1=1 ORDER BY nombre";
+											$sql="SELECT * FROM marcas WHERE 1=1 ORDER BY nombre";
 											$r=mysqli_query($db,$sql);
+											
 											if($r)
 											{
+												
 												while($rs=mysqli_fetch_array($r)){
 
 
 
 													?>
-													<option value=""><?php echo $rs['nombre']; ?></option>
+													<option name="marca" value="<?php echo $rs['idmarcas'] ?>"><?php echo $rs['nombre']; ?></option>
 													<?php  
 												}
 											}
@@ -134,15 +136,15 @@ include("conexion.php");
 										<label for="">Talla*</label>
 										<br>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="S">
 											<label class="form-check-label" for="inlineRadio1">S</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="M">
 											<label class="form-check-label" for="inlineRadio2">M</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="L">
 											<label class="form-check-label" for="inlineRadio3">L</label>
 										</div>
 
@@ -156,11 +158,11 @@ include("conexion.php");
 									<div class="form-group">
 										<label for="">Fecha Embarque*</label>
 										<div class="input-group date fecha">
-											<input type="text" id="fecha" class="form-control"><span class="input-group-addon"><i class="calendar-alt"></i></span><img src="iconos/calen.ico" alt="">
+											<input type="text" id="fecha" name="fecha" class="form-control"><span class="input-group-addon"><i class="calendar-alt"></i></span><img src="iconos/calen.ico" alt="">
 										</div>
 										<div class="alert ocultar" id="ocultar7">
 											<div class="alert alert-danger" role="alert">
-											Debe ingresar una fecha!
+												Debe ingresar una fecha!
 											</div>
 										</div>
 									</div>
@@ -206,7 +208,7 @@ include("conexion.php");
 
 								?>
 								<tr>
-									<td><div class="ancho-col"><button class="btn btn-warning"><img src="iconos/Pencil512_44200.ico" alt=""></button></div></td>
+									<td><div class="ancho-col"><button type="button" class="btn btn-warning" onClick="editar(<?php echo $rs1["idmarcas"]; ?>)"><img src="iconos/Pencil512_44200.ico" alt="" ></button></div></td>
 									<td class="text-center"><?php echo $rs1['nombre']; ?></td>
 									<td><button class="btn btn-danger" onClick="borrar(<?php echo $rs1["idmarcas"]; ?>)"><img src="iconos/ic_delete_128_28267.ico" alt=""></button></td>
 								</tr>
@@ -271,6 +273,10 @@ include("conexion.php");
 		function borrar(id)
 		{
 			location.href="borrar.php?id="+id;
+		}
+		function editar(id)
+		{
+			location.href="editar.php?id="+id
 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
